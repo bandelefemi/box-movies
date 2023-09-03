@@ -11,7 +11,7 @@ namespace MovieSearchDatabase
     {    
         string connectionString = "Server=localhost; Database=master; User Id=SA; Password=SFY3Uwz5@hHib%j;";    
     
-        //To View all employees details      
+        //To View all movie details      
         public IEnumerable<Movie> GetAllMovies()    
         {    
             List<Movie> lstmovie = new List<Movie>();    

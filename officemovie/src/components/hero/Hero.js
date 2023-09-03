@@ -29,7 +29,7 @@ const Hero = () => {
     }, [title])
 
     useEffect(()=> {
-        const getDetails= async () => {
+        const getQuery= async () => {
             try {
                 const res = await axios.get(`https://localhost:7137/api/movieapi/getallmovies`)
                 setQuery(res.data)
@@ -37,7 +37,7 @@ const Hero = () => {
                 
             }
         }
-        getDetails()
+        getQuery()
     }, [])
 
     // console.log(last5Queries)
@@ -89,9 +89,7 @@ const Hero = () => {
                 {/* search inputs */}
                 <div className=' flex w-[70%] justify-between p-6 mt-5 rounded-[50px] bg-white'>
                     <input onChange={(e)=> setTitle(e.target.value)} type="text" placeholder='Enter title' className=' w-full outline-none text-gray-600 text-xl' />
-                    {/* <Link href={`/details/${title}`}> */}
-                        <img src="/assets/icons/search2.svg" alt="" onClick={handleSubmit} className=' w-9 cursor-pointer' />
-                    {/* </Link> */}
+                    <img src="/assets/icons/search2.svg" alt="" onClick={handleSubmit} className=' w-9 cursor-pointer' />
                 </div>
 
                 {/* recent queries */}
