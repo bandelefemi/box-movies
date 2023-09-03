@@ -1,6 +1,12 @@
-using Microsoft.AspNetCore.Cors;
+// using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using MovieSearchDatabase;
+using System.Linq;
+using System.Collections.Generic;  
+using System.Diagnostics; 
+using System.Threading.Tasks;
+using System;
+
 
 namespace OfficeMoviesApi.Controllers
 {
@@ -9,16 +15,30 @@ namespace OfficeMoviesApi.Controllers
 
     public class MovieController : ControllerBase
     {
-        [HttpGet]
+        private readonly MovieDataAccessLayer objmovie;
 
-        public IEnumerable<Movie> GetMovies()
+        public MovieController()
         {
-            return new List<Movie>
+            objmovie = new MovieDataAccessLayer();
+        }
+
+        [HttpGet("getallmovies")]
+        public IActionResult GetAllMovies()
+        {
+            List<Movie> lstMovie = objmovie.GetAllMovies().ToList();
+            return Ok(lstMovie);
+        }
+
+        [HttpPost("createmovie")]
+        public IActionResult CreateMovie([FromBody] Movie movie)
+        {
+            if (ModelState.IsValid)
             {
-                new Movie{Id=1, Title="Resident evil"},
-                new Movie{Id=2, Title="Suits"},
-                new Movie{Id=3, Title="Gods of Egypt"}
-            };
+                objmovie.AddMovie(movie);
+                return Ok("Movie created successfully.");
+            }
+
+            return BadRequest("Invalid movie data.");
         }
     }
 }
